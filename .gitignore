@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+# my additions
+.DS_Store
+DW Demand Management.Rproj
