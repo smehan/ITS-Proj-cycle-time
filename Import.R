@@ -45,3 +45,8 @@ PDuration$month_num_due <- month(PDuration$Due.Date)
 PDuration$project_duration <- round((PDuration$Resolved - PDuration$Created), 3)
 # end
 
+###########################################################
+### save the data frame for use in other scripts
+###########################################################
+saveRDS(PDuration, "DW_data/Project_Duration.rds")
+# end
