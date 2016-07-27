@@ -18,10 +18,30 @@ rownames(DWData) <- DWData$Key
 
 # Convert empty values to NA
 DWData[DWData == ""] <- NA
-#DWData[DWData == " "] <- NA # there are still some rows ending with an extra space
 # end
 
 # Convert dates to posix date objects
 DWData$Created <- mdy(DWData$Created)
 DWData$Resolved <- mdy(DWData$Resolved)
 DWData$Due.Date <- mdy(DWData$Due.Date)
+# end
+
+###########################################################
+### perform date calculations
+###########################################################
+
+# Year request created into year and month, with a numerical and text month
+DWData$year_created <- year(DWData$Created)
+DWData$month_created <- month(DWData$Created, label = TRUE)
+DWData$month_num_created <- month(DWData$Created)
+DWData$year_resolved <- year(DWData$Resolved)
+DWData$month_resolved <- month(DWData$Resolved, label = TRUE)
+DWData$month_num_resolved <- month(DWData$Resolved)
+DWData$year_due <- year(DWData$Due.Date)
+DWData$month_due <- month(DWData$Due.Date, label = TRUE)
+DWData$month_num_due <- month(DWData$Due.Date)
+
+# Calendar duration of project
+DWData$project_duration <- round((DWData$Resolved - DWData$Created), 3)
+# end
+
