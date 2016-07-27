@@ -1,5 +1,5 @@
 ###########################################################
-### Importing and cleansing DW data
+### Importing and cleansing DW project duration data
 ###########################################################
 library(ggplot2)
 library(scales)
@@ -11,19 +11,19 @@ library(reshape2)
 library(lubridate)
 
 # assemble the main datafile
-DWData <- read.csv("DW_Data/DW_Projects.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE,
+PDuration <- read.csv("DW_Data/DW_Projects.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE,
                     as.is = c("Summary"))
-rownames(DWData) <- DWData$Key
+rownames(PDuration) <- PDuration$Key
 # end
 
 # Convert empty values to NA
-DWData[DWData == ""] <- NA
+PDuration[PDuration == ""] <- NA
 # end
 
 # Convert dates to posix date objects
-DWData$Created <- mdy(DWData$Created)
-DWData$Resolved <- mdy(DWData$Resolved)
-DWData$Due.Date <- mdy(DWData$Due.Date)
+PDuration$Created <- mdy(PDuration$Created)
+PDuration$Resolved <- mdy(PDuration$Resolved)
+PDuration$Due.Date <- mdy(PDuration$Due.Date)
 # end
 
 ###########################################################
@@ -31,17 +31,17 @@ DWData$Due.Date <- mdy(DWData$Due.Date)
 ###########################################################
 
 # Year request created into year and month, with a numerical and text month
-DWData$year_created <- year(DWData$Created)
-DWData$month_created <- month(DWData$Created, label = TRUE)
-DWData$month_num_created <- month(DWData$Created)
-DWData$year_resolved <- year(DWData$Resolved)
-DWData$month_resolved <- month(DWData$Resolved, label = TRUE)
-DWData$month_num_resolved <- month(DWData$Resolved)
-DWData$year_due <- year(DWData$Due.Date)
-DWData$month_due <- month(DWData$Due.Date, label = TRUE)
-DWData$month_num_due <- month(DWData$Due.Date)
+PDuration$year_created <- year(PDuration$Created)
+PDuration$month_created <- month(PDuration$Created, label = TRUE)
+PDuration$month_num_created <- month(PDuration$Created)
+PDuration$year_resolved <- year(PDuration$Resolved)
+PDuration$month_resolved <- month(PDuration$Resolved, label = TRUE)
+PDuration$month_num_resolved <- month(PDuration$Resolved)
+PDuration$year_due <- year(PDuration$Due.Date)
+PDuration$month_due <- month(PDuration$Due.Date, label = TRUE)
+PDuration$month_num_due <- month(PDuration$Due.Date)
 
 # Calendar duration of project
-DWData$project_duration <- round((DWData$Resolved - DWData$Created), 3)
+PDuration$project_duration <- round((PDuration$Resolved - PDuration$Created), 3)
 # end
 
