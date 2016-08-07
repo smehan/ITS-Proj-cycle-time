@@ -18,16 +18,16 @@ ggplot(PDuration) +
   aes(PDuration$project_duration) +
   geom_histogram(fill="darkblue") +
   ggtitle("Histogram Plot - Project Duration") +
-  labs(x="Duration", y="Count")
+  labs(y="Project",x="Days")
 
 ###########################################################
-## Create scatter plot of project duration data
+## Create scatter plots of project duration data
 ###########################################################
 
 ggplot(PDuration) +
   aes(x=Key, y=project_duration) +
   geom_point() +
-  ggtitle("Project Durations Histogram for all projects") + 
+  ggtitle("Project Durations for All Projects") + 
   labs(x="Project", y="Days")
 
 ggplot(PDuration) +
