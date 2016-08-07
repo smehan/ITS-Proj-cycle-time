@@ -41,6 +41,34 @@ PDuration$year_due <- year(PDuration$Due.Date)
 PDuration$month_due <- month(PDuration$Due.Date, label = TRUE)
 PDuration$month_num_due <- month(PDuration$Due.Date)
 
+# Create quarterly cycles for each project
+# This will be used to see which customers had a project in each cycle and
+# to calculate the coverage through each cycle (percentge of customers starting projects)
+
+#First create the QTR - prepare to concatenate with Year to create cycle
+
+# User defined function that calculates the QTR that a month occurs. Input
+# should a numerical month number [1,12].
+# Outputs a qts number [1,4]
+determine_QTR <- function(month){
+  if ((month >= 1) & (month <= 3)) {
+    return(1)
+  } else if ((month >= 4) & (month <= 6)) {
+    return(2)
+  } else if ((month >= 7) & (month <= 9)) {
+    return(3)
+  } else if ((month >= 10) & (month <= 12)) {
+    return(4)
+  }
+}
+
+# Using the determine_QTR function, iterate over every row and pull the month created
+# to calculate the new QTR value.
+PDuration$QTR <- unlist(lapply(PDuration$month_num_created, function(month) determine_QTR(month)))
+
+#Create Cycle 
+#Cycle
+      
 # Calendar duration of project, cast as an integer
 PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$Created), 3))
 # end
