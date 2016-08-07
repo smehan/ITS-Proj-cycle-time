@@ -41,8 +41,8 @@ PDuration$year_due <- year(PDuration$Due.Date)
 PDuration$month_due <- month(PDuration$Due.Date, label = TRUE)
 PDuration$month_num_due <- month(PDuration$Due.Date)
 
-# Calendar duration of project
-PDuration$project_duration <- round((PDuration$Resolved - PDuration$Created), 3)
+# Calendar duration of project, cast as an integer
+PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$Created), 3))
 # end
 
 ###########################################################
