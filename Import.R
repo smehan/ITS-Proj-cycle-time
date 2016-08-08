@@ -76,7 +76,7 @@ PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$C
 ### groups particpating departments by cycles
 ###########################################################
 
-cycles <- recast(PDuration, QTR ~ Dept, measure.var = QTR)
+cycles <- dcast(PDuration, QTR ~ Dept)
 
 # calculate the mean project duration of each set of projects by cycle
 tmp <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), mean)
@@ -87,8 +87,29 @@ colnames(cycles)[13] <- "mean_proj_duration"
 rm(tmp)
 
 ###########################################################
+### Calculate % of coverage based on projects started by
+###  dept by cycle
+###########################################################
+### sum the rows to prepare for % calculation
+cycles2 <- cycles
+cycles2$ADM <- unlist(lapply(cycles2[,2], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$FA <- unlist(lapply(cycles2[,3], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$FAC <- unlist(lapply(cycles2[,4], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$FIN <- unlist(lapply(cycles2[,5], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$HR <- unlist(lapply(cycles2[,6], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$ITS <- unlist(lapply(cycles2[,7], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$OR <- unlist(lapply(cycles2[,8], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$Security <- unlist(lapply(cycles2[,9], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$SF <- unlist(lapply(cycles2[,10], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$UA<- unlist(lapply(cycles2[,11], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$UPD <- unlist(lapply(cycles2[,12], function(s) { ifelse (s > 0, 1, 0)}))
+### Calculate percentage of coverage
+cycles2$prc <- rowSums(cycles2[,2:12])/10*100
+
+###########################################################
 ### save the data frame for use in other scripts
 ###########################################################
 saveRDS(PDuration, "DW_data/Project_Duration.rds")
+saveRDS(cycles2, "DW_data/Cycles2.rds")
 # end
 
