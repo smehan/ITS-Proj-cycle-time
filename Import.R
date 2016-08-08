@@ -72,6 +72,13 @@ PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$C
 # end
 
 ###########################################################
+### Recast long data into a wide format that
+### groups particpating departments by cycles
+###########################################################
+
+cycles <- recast(PDuration, QTR ~ Dept, measure.var = QTR)
+
+###########################################################
 ### save the data frame for use in other scripts
 ###########################################################
 saveRDS(PDuration, "DW_data/Project_Duration.rds")
