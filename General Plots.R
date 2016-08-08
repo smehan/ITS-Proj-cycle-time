@@ -43,5 +43,10 @@ ggplot(PDuration) +
   ggtitle("Project Duration by Project Creation Date") + 
   labs(x="Creation Date", y="Days")
 
-
+ggplot(PDuration) +
+  aes(x=QTR, y=Dept) +
+  geom_point(aes(size = project_duration)) + 
+  geom_jitter() +
+  ggtitle("") + 
+  labs(x="Creation Date", y="Days")
 
