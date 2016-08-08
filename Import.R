@@ -47,9 +47,8 @@ PDuration$month_num_due <- month(PDuration$Due.Date)
 
 #First create the QTR - prepare to concatenate with Year to create cycle
 
-# User defined function that calculates the QTR that a month occurs. Input
-# should a numerical month number [1,12].
-# Outputs a qts number [1,4]
+# A list with month and year is passed to the function to create the 
+# cycle (year concatenated with month)
 determine_QTR <- function(data){
   month <- data[1]
   year <- data[2]
@@ -64,7 +63,7 @@ determine_QTR <- function(data){
   }
 }
 
-# Using the determine_QTR function, iterate over every row and pull the month created
+# Using the determine_QTR function, iterate over every row and pull the month and year created
 # to calculate the new QTR value.
 PDuration$QTR <- apply(PDuration[,c('month_num_created', 'year_created')], 1,
                                function(x) determine_QTR(x))
