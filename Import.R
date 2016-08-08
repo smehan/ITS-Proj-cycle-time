@@ -68,9 +68,6 @@ determine_QTR <- function(data){
 # to calculate the new QTR value.
 PDuration$QTR <- apply(PDuration[,c('month_num_created', 'year_created')], 1,
                                function(x) determine_QTR(x))
-
-#Create Cycle 
-#Cycle
       
 # Calendar duration of project, cast as an integer
 PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$Created), 3))
