@@ -12,15 +12,6 @@ PDuration <- readRDS(file="DW_data/Project_Duration.rds")
 # end
 
 ###########################################################
-## Create histogram of project duration data
-###########################################################
-ggplot(PDuration) +
-  aes(PDuration$project_duration) +
-  geom_histogram(fill="darkblue") +
-  ggtitle("Histogram Plot - Project Duration") +
-  labs(y="Project",x="Days")
-
-###########################################################
 ## Create scatter plots of project duration data
 ###########################################################
 
@@ -47,6 +38,10 @@ ggplot(PDuration) +
   aes(x=QTR, y=Dept) +
   geom_point(aes(size = project_duration)) + 
   geom_jitter() +
-  ggtitle("") + 
-  labs(x="Creation Date", y="Days")
+  ggtitle("Projects by Department & Quarter") + 
+  labs(x="Quarter", y="Department")
+
+#Count number of projects by Dept and QTR
+Proj_by_Dept <- tally(group_by(PDuration, Dept))
+Proj_by_Cycle <- tally(group_by(PDuration,QTR))
 
