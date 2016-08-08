@@ -45,7 +45,7 @@ PDuration$month_num_due <- month(PDuration$Due.Date)
 # This will be used to see which customers had a project in each cycle and
 # to calculate the coverage through each cycle (percentge of customers starting projects)
 
-#First create the QTR - prepare to concatenate with Year to create cycle
+# First create the QTR - prepare to concatenate with Year to create cycle
 # A list with month and year is passed to the function to create the 
 # cycle (year concatenated with month)
 determine_QTR <- function(data){
