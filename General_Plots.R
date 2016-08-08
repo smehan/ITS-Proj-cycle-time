@@ -9,6 +9,7 @@ library(qcc)
 
 # Load in the project duration data from disk
 PDuration <- readRDS(file="DW_data/Project_Duration.rds")
+cycles2 <- readRDS(file="DW_data/Cycles2.rds")
 # end
 
 ###########################################################
@@ -40,6 +41,10 @@ ggplot(PDuration) +
   geom_jitter() +
   ggtitle("Projects by Department & Quarter") + 
   labs(x="Quarter", y="Department")
+
+ggplot(cycles2) +
+  aes(x=QTR, y=prc) +
+  geom_point()
 
 #Count number of projects by Dept and QTR
 Proj_by_Dept <- tally(group_by(PDuration, Dept))
