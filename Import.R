@@ -78,6 +78,14 @@ PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$C
 
 cycles <- recast(PDuration, QTR ~ Dept, measure.var = QTR)
 
+# calculate the mean project duration of each set of projects by cycle
+tmp <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), mean)
+
+# outputs mean project_duration to $Group.1, so join tables
+cycles <- left_join(cycles, tmp, by = c("QTR" = "Group.1"))
+colnames(cycles)[13] <- "mean_proj_duration"
+rm(tmp)
+
 ###########################################################
 ### save the data frame for use in other scripts
 ###########################################################
