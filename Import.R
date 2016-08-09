@@ -118,10 +118,18 @@ cycles2$UPD <- unlist(lapply(cycles2[,12], function(s) { ifelse (s > 0, 1, 0)}))
 ### Calculate percentage of coverage
 cycles2$prc <- rowSums(cycles2[,2:12])/10*100
 
+########################################################
+# create cycles3 which eliminates all of the dept info
+########################################################
+cycles3 <- data.frame(cycles2)
+cycles3[2:12] <- NULL
+cycles3 <- cycles3[-c(1,2),]
+
 ###########################################################
 ### save the data frame for use in other scripts
 ###########################################################
 saveRDS(PDuration, "DW_data/Project_Duration.rds")
 saveRDS(cycles2, "DW_data/Cycles2.rds")
+saveRDS(cycles3, "DW_data/Cycles3.rds")
 # end
 
