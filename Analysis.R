@@ -8,13 +8,17 @@ library(qcc)
 
 # Load in the project duration data from disk
 PDuration <- readRDS(file="DW_data/Project_Duration.rds")
+cycles2 <- readRDS(file="DW_data/Cycles2.rds")
+cycles3 <- readRDS(file="DW_data/Cycles3.rds")
 # end
 
+################################################################
+#  create linear models
+################################################################
+mod1 <- lm(prc ~ mean_proj_duration + total_proj_duration + tot_projects,
+       data=cycles3)
+summary(mod1)
 
-
-# calculates the mean project duration grouped by Dept
-aggregate(project_duration ~ Dept, data = PDuration, mean)
-
-# save the result as an object and calculate the mean of means
-pre_means <- aggregate(project_duration ~ Dept, data = PDuration, mean)
-mean(pre_means$project_duration)
+mod2 <- lm(prc ~ mean_proj_duration + total_proj_duration ,
+           data=cycles3)
+summary(mod2)
