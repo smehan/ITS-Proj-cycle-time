@@ -44,9 +44,32 @@ ggplot(PDuration) +
 
 ggplot(cycles2) +
   aes(x=QTR, y=prc) +
-  geom_point()
+  geom_point() +
+  ggtitle("Percentage of Coverage") +
+  labs(x="Quarter", y="Percentage")
+  
+ggplot(cycles2) +
+  aes(x=QTR, y=tot_projects) +
+  geom_point(aes(size = total_proj_duration,
+                 color = prc)) +
+  geom_jitter() +
+  ggtitle("Total Projects by Cycle") +
+  labs(x="Quarter", y="Total # of Projects")
 
-#Count number of projects by Dept and QTR
-Proj_by_Dept <- tally(group_by(PDuration, Dept))
-Proj_by_Cycle <- tally(group_by(PDuration,QTR))
+ggplot(cycles2) +
+  aes(x=QTR, y=prc) +
+  geom_point(aes(size = total_proj_duration,
+                 color = mean_proj_duration)) +
+  geom_jitter() +
+  ggtitle("Coverage by Cycle") +
+  labs(x="Quarter", y="Coverage")
 
+boxplot(x = cycles2$total_proj_duration, notch = TRUE)
+boxplot(prc ~ total_proj_duration, data = cycles2, notch = TRUE)
+boxplot(total_proj_duration ~ mean_proj_duration, data = cycles2, notch = TRUE)
+boxplot(total_proj_duration ~ tot_projects, data = cycles2, notch = TRUE)
+
+ggplot(cycles2) +
+  aes(x = QTR, y = total_proj_duration) +
+  geom_point(aes(color = prc)) +
+  scale_color_continuous_tableau()
