@@ -92,6 +92,11 @@ cycles <- left_join(cycles, tmp2, by = c("QTR" = "Group.1"))
 colnames(cycles)[14] <- "total_proj_duration"
 rm(tmp2)
 
+##############################################################
+# calculate the total number of projects by cycle
+##############################################################
+cycles$tot_projects <- rowSums(cycles[,2:12])
+
 ###########################################################
 ### Calculate % of coverage based on projects started by
 ###  dept by cycle
@@ -109,6 +114,7 @@ cycles2$Security <- unlist(lapply(cycles2[,9], function(s) { ifelse (s > 0, 1, 0
 cycles2$SF <- unlist(lapply(cycles2[,10], function(s) { ifelse (s > 0, 1, 0)}))
 cycles2$UA<- unlist(lapply(cycles2[,11], function(s) { ifelse (s > 0, 1, 0)}))
 cycles2$UPD <- unlist(lapply(cycles2[,12], function(s) { ifelse (s > 0, 1, 0)}))
+
 ### Calculate percentage of coverage
 cycles2$prc <- rowSums(cycles2[,2:12])/10*100
 
