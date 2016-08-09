@@ -80,11 +80,17 @@ cycles <- dcast(PDuration, QTR ~ Dept)
 
 # calculate the mean project duration of each set of projects by cycle
 tmp <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), mean)
-
 # outputs mean project_duration to $Group.1, so join tables
 cycles <- left_join(cycles, tmp, by = c("QTR" = "Group.1"))
 colnames(cycles)[13] <- "mean_proj_duration"
 rm(tmp)
+
+# calculate the total project duration for all projects by cycle
+tmp2 <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), sum)
+# outputs total project_duration to $Group.1, so join tables
+cycles <- left_join(cycles, tmp2, by = c("QTR" = "Group.1"))
+colnames(cycles)[14] <- "total_proj_duration"
+rm(tmp2)
 
 ###########################################################
 ### Calculate % of coverage based on projects started by
