@@ -11,7 +11,7 @@ library(reshape2)
 library(lubridate)
 
 # assemble the main datafile
-PDuration <- read.csv("DW_Data/DW_Projects.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE,
+PDuration <- read.csv("DW_Data/DW_Demand_Mgmt.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE,
                     as.is = c("Summary"))
 rownames(PDuration) <- PDuration$Key
 # end
@@ -82,20 +82,20 @@ cycles <- dcast(PDuration, QTR ~ Dept)
 tmp <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), mean)
 # outputs mean project_duration to $Group.1, so join tables
 cycles <- left_join(cycles, tmp, by = c("QTR" = "Group.1"))
-colnames(cycles)[13] <- "mean_proj_duration"
+colnames(cycles)[18] <- "mean_proj_duration"
 rm(tmp)
 
 # calculate the total project duration for all projects by cycle
 tmp2 <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), sum)
 # outputs total project_duration to $Group.1, so join tables
 cycles <- left_join(cycles, tmp2, by = c("QTR" = "Group.1"))
-colnames(cycles)[14] <- "total_proj_duration"
+colnames(cycles)[19] <- "total_proj_duration"
 rm(tmp2)
 
 ##############################################################
 # calculate the total number of projects by cycle
 ##############################################################
-cycles$tot_projects <- rowSums(cycles[,2:12])
+cycles$tot_projects <- rowSums(cycles[,2:17])
 
 ###########################################################
 ### Calculate % of coverage based on projects started by
@@ -104,25 +104,30 @@ cycles$tot_projects <- rowSums(cycles[,2:12])
 ### sum the rows to prepare for % calculation
 cycles2 <- cycles
 cycles2$ADM <- unlist(lapply(cycles2[,2], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$FA <- unlist(lapply(cycles2[,3], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$FAC <- unlist(lapply(cycles2[,4], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$FIN <- unlist(lapply(cycles2[,5], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$HR <- unlist(lapply(cycles2[,6], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$ITS <- unlist(lapply(cycles2[,7], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$OR <- unlist(lapply(cycles2[,8], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$Security <- unlist(lapply(cycles2[,9], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$SF <- unlist(lapply(cycles2[,10], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$UA<- unlist(lapply(cycles2[,11], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$UPD <- unlist(lapply(cycles2[,12], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$CPC <- unlist(lapply(cycles2[,3], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$DRC <- unlist(lapply(cycles2[,4], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$FA <- unlist(lapply(cycles2[,5], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$FAC <- unlist(lapply(cycles2[,6], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$FIN <- unlist(lapply(cycles2[,7], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$Housing <- unlist(lapply(cycles2[,8], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$HR <- unlist(lapply(cycles2[,9], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$ITS <- unlist(lapply(cycles2[,10], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$OR <- unlist(lapply(cycles2[,11], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$SA <- unlist(lapply(cycles2[,12], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$Security <- unlist(lapply(cycles2[,13], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$SF <- unlist(lapply(cycles2[,14], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$STDY_AB <- unlist(lapply(cycles2[,15], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$UA <- unlist(lapply(cycles2[,16], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$UPD <- unlist(lapply(cycles2[,17], function(s) { ifelse (s > 0, 1, 0)}))
 
 ### Calculate percentage of coverage
-cycles2$prc <- rowSums(cycles2[,2:12])/10*100
+cycles2$prc <- rowSums(cycles2[,2:17])/10*100
 
 ########################################################
 # create cycles3 which eliminates all of the dept info
 ########################################################
 cycles3 <- data.frame(cycles2)
-cycles3[2:12] <- NULL
+cycles3[2:17] <- NULL
 cycles3 <- cycles3[-c(1,2),]
 
 ###########################################################
