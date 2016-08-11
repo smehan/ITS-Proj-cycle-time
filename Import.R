@@ -72,6 +72,13 @@ PDuration$project_duration <- as.integer(round((PDuration$Resolved - PDuration$C
 # end
 
 ###########################################################
+# Add column for total number of cycles that a project ran
+# Use 92 as the total days that equals one quarter
+# Divide the total duration by 92 to get the total cycles
+###########################################################
+PDuration$tot_cycles <- as.integer(ceiling(PDuration$project_duration/92))
+
+###########################################################
 ### Recast long data into a wide format that
 ### groups particpating departments by cycles
 ###########################################################
