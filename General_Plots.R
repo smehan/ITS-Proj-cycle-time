@@ -30,6 +30,13 @@ ggplot(PDuration) +
   labs(x="Creation Date", y="Days")
 
 ggplot(PDuration) +
+  aes(y=tot_cycles, x=Dept) +
+  geom_point(aes(color=Created)) +
+  ggtitle("Project Duration by Total Project Cycles") + 
+  labs(x="Dept", y="Total Cycles")
+
+
+ggplot(PDuration) +
   aes(x=Created, y=project_duration) +
   geom_point() + 
   facet_wrap(~Dept) +
@@ -74,6 +81,15 @@ ggplot(cycles2) +
   geom_point(aes(color = prc)) +
   scale_color_continuous_tableau()
 
+ggplot(cycles2) +
+  aes(x=mean_proj_duration, y=prc) +
+  geom_point(aes(color = tot_projects))
+
+ggplot(cycles2) +
+  aes(x=tot_projects, y=prc) +
+  geom_point(aes(color = mean_proj_duration)) +
+  scale_color_continuous_tableau()
+
 ##############################################################
 # Create series of box plots from cycles2
 ##############################################################
@@ -85,7 +101,7 @@ boxplot(total_proj_duration ~ tot_projects, data = cycles2, notch = TRUE)
 ###########################################################
 ## Create scatter plots of cycles3 data
 ###########################################################
-ggplot(cycles3) +
+ggplot(cycles2) +
   aes(x=QTR, y=prc) +
   geom_point() +
   ggtitle("Percentage of Coverage") +
