@@ -13,7 +13,7 @@ library(lubridate)
 # assemble the main datafile
 PDuration <- read.csv("DW_Data/DW_Demand_Mgmt.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE,
                     as.is = c("Summary"))
-rownames(PDuration) <- PDuration$Key
+#rownames(PDuration) <- PDuration$Key
 # end
 
 # Convert empty values to NA
@@ -85,29 +85,29 @@ PDuration$tot_cycles <- as.integer(ceiling(PDuration$project_duration/92))
 
 cycles <- dcast(PDuration, QTR ~ Dept)
 cycles$AP <- 0
-cycles$Advising <- 0
+cycles$ADV <- 0
 cycles$IR <- 0
-cycles$Int_Ctr <- 0
-cycles$Security <- 0
+cycles$INT_CTR <- 0
+cycles$SEC <- 0
 
 # calculate the mean project duration of each set of projects by cycle
 tmp <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), mean)
 # outputs mean project_duration to $Group.1, so join tables
 cycles <- left_join(cycles, tmp, by = c("QTR" = "Group.1"))
-colnames(cycles)[19] <- "mean_proj_duration"
+colnames(cycles)[18] <- "mean_proj_duration"
 rm(tmp)
 
 # calculate the total project duration for all projects by cycle
 tmp2 <- aggregate(PDuration[, c('project_duration')], list(PDuration$QTR), sum)
 # outputs total project_duration to $Group.1, so join tables
 cycles <- left_join(cycles, tmp2, by = c("QTR" = "Group.1"))
-colnames(cycles)[20] <- "total_proj_duration"
+colnames(cycles)[19] <- "total_proj_duration"
 rm(tmp2)
 
 ##############################################################
 # calculate the total number of projects by cycle
 ##############################################################
-cycles$tot_projects <- rowSums(cycles[,2:18])
+cycles$tot_projects <- rowSums(cycles[,2:17])
 
 ###########################################################
 ### Calculate % of coverage based on projects started by
@@ -128,10 +128,10 @@ cycles2$SF <- unlist(lapply(cycles2[,11], function(s) { ifelse (s > 0, 1, 0)}))
 cycles2$UA <- unlist(lapply(cycles2[,12], function(s) { ifelse (s > 0, 1, 0)}))
 cycles2$UPD <- unlist(lapply(cycles2[,13], function(s) { ifelse (s > 0, 1, 0)}))
 cycles2$AP <- unlist(lapply(cycles2[,14], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$Advising <- unlist(lapply(cycles2[,15], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$ADV <- unlist(lapply(cycles2[,15], function(s) { ifelse (s > 0, 1, 0)}))
 cycles2$IR <- unlist(lapply(cycles2[,16], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$Int_Ctr <- unlist(lapply(cycles2[,17], function(s) { ifelse (s > 0, 1, 0)}))
-cycles2$Security <- unlist(lapply(cycles2[,18], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$INT_CTR <- unlist(lapply(cycles2[,17], function(s) { ifelse (s > 0, 1, 0)}))
+cycles2$SEC <- unlist(lapply(cycles2[,18], function(s) { ifelse (s > 0, 1, 0)}))
 
 
 
