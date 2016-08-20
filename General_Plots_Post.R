@@ -52,6 +52,15 @@ ggplot(Cycles_Edited) +
   geom_point(aes(color = mean_proj_duration)) +
   scale_color_continuous_tableau()
 
+ggplot(cycles3_ed) +
+  aes(x=QTR, y=Dept) +
+  geom_point(aes(size = total_proj_duration)) + 
+  geom_jitter() +
+  ggtitle("Projects by Department & Quarter") + 
+  labs(x="Quarter", y="Department")
+
+
+
 ##############################################################
 # Create series of box plots from cycles2
 ##############################################################
