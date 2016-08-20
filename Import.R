@@ -137,7 +137,7 @@ cycles2$DRC <- unlist(lapply(cycles2[,18], function(s) { ifelse (s > 0, 1, 0)}))
 
 
 ### Calculate percentage of coverage
-cycles2$prc <- rowSums(cycles2[,2:18])/17*100
+cycles2$prc <- round((rowSums(cycles2[,2:18])/17),2)
 
 ########################################################
 # create cycles3 which eliminates all of the dept info
