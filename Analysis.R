@@ -15,7 +15,6 @@ cycles_P2 <- readRDS(file="DW_data/Cycles_P2.rds")
 ################################################################
 #  create linear models
 ################################################################
-
 mod1 <- lm(mean_proj_duration ~ seq_along(QTR), data=cycles2)
 summary(mod1)
 
@@ -39,3 +38,15 @@ summary(mod7)
 
 mod8 <- lm(prc ~ seq_along(QTR)+ mean_proj_duration + tot_projects, data=cycles_P2)
 summary(mod8)
+#####################################################################
+
+#####################################################################
+# Using qcc to get a simple Individuals Chart
+# Get the vector of observations in which are interested
+
+# Create an ImR object for process capability calculation.
+nq <- qcc(cycles2$prc, type="xbar.one", nsigmas=3)
+
+# Create an ImR object for process capability calculation.
+nq <- qcc(cycles_P2$prc, type="xbar.one", nsigmas=3)
+#####################################################################
