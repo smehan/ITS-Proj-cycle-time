@@ -10,8 +10,27 @@ library(qcc)
 PDuration_P <- readRDS(file="DW_data/Project_Duration_Post.rds")
 cycles_P2 <- readRDS(file="DW_data/Cycles_P2.rds")
 # end
+
 ###########################################################
 ## Create scatter plots of cycles_P2 data
+###########################################################
+
+ggplot(PDuration_P) +
+  aes(x=QTR, y=project_duration) +
+  geom_point(aes(color = Dept)) +
+  geom_jitter() +
+  ggtitle("Data Warehouse Projects - POST") +
+  labs(x="Quarter", y="Project Duration")
+
+ggplot(cycles_P2) +
+  aes(x=seq_along(QTR), y=prc) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  ggtitle("Percentage of Coverage by Cycle") +
+  labs(x="Quarter", y="% of Coverage")
+  
+###########################################################
+## Experiment with creating scatter plots of cycles_P2 data
 ###########################################################
 ggplot(cycles_P2) +
   aes(x=QTR, y=prc) +
@@ -34,13 +53,6 @@ ggplot(cycles_P2) +
   ggtitle("Coverage by Cycle - POST") +
   labs(x="Quarter", y="Coverage")
 
-ggplot(PDuration_P) +
-  aes(x=QTR, y=project_duration) +
-  geom_point(aes(color = Dept)) +
-  geom_jitter() +
-  ggtitle("Data Warehouse Projects - POST") +
-  labs(x="Quarter", y="Project Duration")
-
 ggplot(cycles_P2) +
   aes(x = QTR, y = total_proj_duration) +
   geom_point(aes(color = prc)) +
@@ -54,3 +66,5 @@ ggplot(cycles_P2) +
   aes(x=tot_projects, y=prc) +
   geom_point(aes(color = mean_proj_duration)) +
   scale_color_continuous_tableau()
+
+
