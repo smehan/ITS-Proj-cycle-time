@@ -50,3 +50,17 @@ nq <- qcc(cycles2$prc, type="xbar.one", nsigmas=3)
 # Create an ImR object for process capability calculation.
 nq <- qcc(cycles_P2$prc, type="xbar.one", nsigmas=3)
 #####################################################################
+
+##########################################################
+# Multiple Regression Model 1 with all predictor variables
+##########################################################
+
+model1 <- lm(prc ~ mean_proj_duration, cycles2)
+
+summary(model1)
+coef(model1)
+
+library(coefplot)
+coefplot(model1)
+
+#######  End Model 1
