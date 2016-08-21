@@ -28,6 +28,13 @@ ggplot(cycles_P2) +
   geom_smooth(method = lm) +
   ggtitle("Percentage of Coverage by Cycle") +
   labs(x="Quarter", y="% of Coverage")
+
+ggplot(cycles_P2) +
+  aes(x=tot_projects, y=prc) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  ggtitle("% of Coverage by Total Projects Started - POST") +
+  labs(x="Total Projects Started", y="% of Coverage")
   
 ###########################################################
 ## Experiment with creating scatter plots of cycles_P2 data
