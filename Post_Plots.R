@@ -7,6 +7,7 @@ library(reshape2)
 library(dplyr)
 library(qcc)
 # Load in the project duration data from disk
+PDuration_P <- readRDS(file="DW_data/Project_Duration_Post.rds")
 cycles_P2 <- readRDS(file="DW_data/Cycles_P2.rds")
 # end
 ###########################################################
@@ -32,6 +33,13 @@ ggplot(cycles_P2) +
   geom_jitter() +
   ggtitle("Coverage by Cycle - POST") +
   labs(x="Quarter", y="Coverage")
+
+ggplot(PDuration_P) +
+  aes(x=QTR, y=project_duration) +
+  geom_point(aes(color = Dept)) +
+  geom_jitter() +
+  ggtitle("Data Warehouse Projects - POST") +
+  labs(x="Quarter", y="Project Duration")
 
 ggplot(cycles_P2) +
   aes(x = QTR, y = total_proj_duration) +
