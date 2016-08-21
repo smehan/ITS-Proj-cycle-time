@@ -16,34 +16,31 @@ cycles2 <- readRDS(file="DW_data/Cycles2.rds")
 ## Create scatter plots of cycles2 data
 ###########################################################
 
-ggplot(cycles2) +
-  aes(x=QTR, y=prc) +
-  geom_point() +
-  ggtitle("Percentage of Coverage") +
-  labs(x="Quarter", y="Percentage")
-
-ggplot(cycles2) +
-  aes(x=QTR, y=tot_projects) +
-  geom_point(aes(size = total_proj_duration,
-                 color = prc)) +
-  geom_jitter() +
-  ggtitle("Total Projects by Cycle") +
-  labs(x="Quarter", y="Total # of Projects")
-
-ggplot(cycles2) +
-  aes(x=QTR, y=prc) +
-  geom_point(aes(size = total_proj_duration,
-                 color = mean_proj_duration)) +
-  geom_jitter() +
-  ggtitle("Coverage by Cycle") +
-  labs(x="Quarter", y="Coverage")
-
 ggplot(PDuration) +
   aes(x=QTR, y=project_duration) +
   geom_point(aes(color = Dept)) +
   geom_jitter() +
   ggtitle("Data Warehouse Projects") +
   labs(x="Quarter", y="Project Duration")
+
+ggplot(cycles2) +
+  aes(x=seq_along(QTR), y=prc) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  ggtitle("Percentage of Coverage by Cycle") +
+  labs(x="Quarter", y="% of Coverage")
+
+###########################################################
+## Experiment with creating scatter plots of cycles2 data
+###########################################################
+
+ggplot(cycles2) +
+  aes(x=seq_along(QTR), y=prc) +
+  geom_point(aes(size = total_proj_duration,
+                 color = mean_proj_duration)) +
+  geom_jitter() +
+  ggtitle("Coverage by Cycle") +
+  labs(x="Quarter", y="Coverage")
 
 ggplot(cycles2) +
   aes(x = QTR, y = total_proj_duration) +
@@ -60,7 +57,7 @@ ggplot(cycles2) +
   scale_color_continuous_tableau()
 
 ##############################################################
-# Create series of box plots from cycles2
+# Experiment with creating series of box plots from cycles2
 ##############################################################
 boxplot(x = cycles2$total_proj_duration, notch = TRUE)
 boxplot(prc ~ total_proj_duration, data = cycles2, notch = TRUE)
