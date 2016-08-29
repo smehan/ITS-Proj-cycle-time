@@ -24,16 +24,16 @@ process.capability(nq, spec.limits = c(25,75), target = 50)
 ################################################################
 #  create linear models for cycles3_ed
 ################################################################
-mod1 <- lm(prc ~ mean_proj_duration, data=cycles2)
+mod1 <- lm(prc ~ mean_proj_duration, data=cycles3_ed)
 summary(mod1)
 
-mod3 <- lm(prc ~ seq_along(QTR), data=cycles2)
+mod3 <- lm(prc ~ seq_along(QTR), data=cycles3_ed)
 summary(mod3)
 
-mod5 <- lm(prc ~ tot_projects, data=cycles2)
+mod5 <- lm(prc ~ tot_projects, data=cycles3_ed)
 summary(mod5)
 
-mod7 <- lm(prc ~ seq_along(QTR)+ mean_proj_duration + tot_projects, data=cycles2)
+mod7 <- lm(prc ~ seq_along(QTR)+ mean_proj_duration + tot_projects, data=cycles3_ed)
 summary(mod7)
 #####################################################################
 
@@ -45,7 +45,7 @@ summary(mod7)
 model1a <- lm(prc ~ mean_proj_duration + total_proj_duration + tot_projects + 
                 mean_proj_duration*total_proj_duration + mean_proj_duration*tot_projects + 
                 total_proj_duration*tot_projects,
-              cycles2)
+              cycles3_ed)
 
 
 anova(model1a)
