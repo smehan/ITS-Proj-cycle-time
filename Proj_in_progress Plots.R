@@ -9,7 +9,6 @@ library(dplyr)
 library(qcc)
 
 # Load in the project duration data from disk
-PDuration <- readRDS(file="DW_data/Project_Duration.rds")
 cycles3_ed <- readRDS(file="DW_data/Cycles3_ed.rds")
 # end
 
@@ -17,13 +16,6 @@ cycles3_ed <- readRDS(file="DW_data/Cycles3_ed.rds")
 ## Create scatter plots of cycles3 edited data -
 ## Projects in progress
 ###########################################################
-
-ggplot(PDuration) +
-  aes(x=QTR, y=project_duration) +
-  geom_point(aes(color = Dept)) +
-  geom_jitter() +
-  ggtitle("Data Warehouse Projects Started by Quarter") +
-  labs(x="Quarter", y="Project Duration")
 
 ggplot(cycles3_ed) +
   aes(x=seq_along(QTR), y=prc) +
