@@ -14,7 +14,7 @@ cycles3_ed <- readRDS(file="DW_data/Cycles3_ed.rds")
 #####################################################################
 # Using qcc to get a simple Individuals Chart (IMR)
 # Get the voice of the process (VOP)
-nq <- qcc(cycles3_ed$prc, type="xbar.one", nsigmas=3)
+nq <- qcc(cycles3_ed$prc, type="xbar.one", nsigmas=3, title = "Individuals Chart - % Coverage")
 
 # Create a process capability analysis of the xbar.one
 # Set the upper, lower, and target specifications based on VOC
@@ -22,31 +22,19 @@ process.capability(nq, spec.limits = c(25,75), target = 50)
 #####################################################################
 
 ################################################################
-#  create linear models
+#  create linear models for cycles3_ed
 ################################################################
 mod1 <- lm(prc ~ mean_proj_duration, data=cycles2)
 summary(mod1)
 
-mod2 <- lm(prc ~ mean_proj_duration, data=cycles_P2)
-summary(mod2)
-
 mod3 <- lm(prc ~ seq_along(QTR), data=cycles2)
 summary(mod3)
-
-mod4 <- lm(prc ~ seq_along(QTR), data=cycles_P2)
-summary(mod4)
 
 mod5 <- lm(prc ~ tot_projects, data=cycles2)
 summary(mod5)
 
-mod6 <- lm(prc ~ tot_projects, data=cycles_P2)
-summary(mod6)
-
 mod7 <- lm(prc ~ seq_along(QTR)+ mean_proj_duration + tot_projects, data=cycles2)
 summary(mod7)
-
-mod8 <- lm(prc ~ seq_along(QTR) + mean_proj_duration + tot_projects, data=cycles_P2)
-summary(mod8)
 #####################################################################
 
 
