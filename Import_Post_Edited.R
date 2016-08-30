@@ -12,7 +12,7 @@ library(lubridate)
 
 # Load in the project duration data from disk
 Cycles_P_Ed <- read.csv("DW_Data/cyclesP_ed.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE)
-#Cycles_P_Ed <- Cycles_P_Ed[,1:16]
+Cycles_P_Ed <- Cycles_P_Ed[1:12,]
 # end
 
 ### set rows to 0 or 1 to prepare for calculations
