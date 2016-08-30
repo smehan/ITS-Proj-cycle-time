@@ -37,37 +37,11 @@ mod7 <- lm(prc ~ seq_along(QTR)+ mean_proj_duration + tot_projects, data=cycles3
 summary(mod7)
 #####################################################################
 
-
 #########################################################
-### 2-way anova
+### Compare the mean to a standard - T-test
+### Ho: Mean of Percentage of Coverage = 50%
+### H1: Mean of Percentage of Coverage <> 50%
+### Significance Level = .05
 ########################################################
 
-model1a <- lm(prc ~ mean_proj_duration + total_proj_duration + tot_projects + 
-                mean_proj_duration*total_proj_duration + mean_proj_duration*tot_projects + 
-                total_proj_duration*tot_projects,
-              cycles3_ed)
-
-
-anova(model1a)
-
-
-
-
-
-
-
-
-
-##########################################################
-# Multiple Regression Model 1 with all predictor variables
-##########################################################
-
-model1 <- lm(prc ~ mean_proj_duration, cycles2)
-
-summary(model1)
-coef(model1)
-
-library(coefplot)
-coefplot(model1)
-
-#######  End Model 1
+t.test (cycles3_ed$prc, mu=50)
