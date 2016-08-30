@@ -13,6 +13,7 @@ library(lubridate)
 # assemble the main datafile
 PDuration_P <- read.csv("DW_Data/DW_Demand_Mgmt_Post.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE,
                       as.is = c("Summary"))
+
 #rownames(PDuration) <- PDuration$Key
 # end
 
