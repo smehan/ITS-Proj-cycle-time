@@ -147,5 +147,10 @@ cycles_P3 <- cycles_P3[-c(1,2),]
 saveRDS(PDuration_P, "DW_data/Project_Duration_Post.rds")
 saveRDS(cycles_P2, "DW_data/Cycles_P2.rds")
 saveRDS(cycles_P3, "DW_data/Cycles_P3.rds")
+###  create csv file for exporting
+write.csv(PDuration_P, file = 'DW_data/PDurationP.csv')
+write.csv(cycles_P, file = 'DW_data/Cycles_P.csv')
+#####  End of csv creation
+
 # end
 
