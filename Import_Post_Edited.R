@@ -12,7 +12,7 @@ library(lubridate)
 
 # Load in the project duration data from disk
 Cycles_P_Ed <- read.csv("DW_Data/cyclesP_ed.csv", header=TRUE, sep = ",", stringsAsFactors = TRUE)
-Cycles_P_Ed <- Cycles_P_Ed[1:12,]
+Cycles_P_Ed <- Cycles_P_Ed[2:12,]
 # end
 
 ### set rows to 0 or 1 to prepare for calculations
@@ -39,14 +39,14 @@ Cycles_P_Ed$UPD <- unlist(lapply(Cycles_P_Ed[,16], function(s) { ifelse (s > 0, 
 ### Calculate percentage of coverage
 Cycles_P_Ed$tot_projects <- rowSums(Cycles_P_Ed[,2:16])
 ### Calculate percentage of coverage
-Cycles_P_Ed$prc <- round((rowSums(Cycles_P_Ed[,2:16])/15),2)
+Cycles_P_Ed$prc <- round((rowSums(Cycles_P_Ed[,2:16])/15*100),2)
 
 ########################################################
 # create cycles3 which eliminates all of the dept info
 ########################################################
 cycles3P_ed <- data.frame(Cycles_P_Ed)
 cycles3P_ed[2:16] <- NULL
-cycles3P_ed <- cycles3P_ed[-c(1,2),]
+##cycles3P_ed <- cycles3P_ed[-c(1,2),]
 
 ###########################################################
 ### save the data frame for use in other scripts
@@ -54,3 +54,4 @@ cycles3P_ed <- cycles3P_ed[-c(1,2),]
 saveRDS(Cycles_P_Ed, "DW_data/Cycles_P_Ed.rds")
 saveRDS(cycles3P_ed, "DW_data/Cycles3P_ed.rds")
 # end
+
