@@ -2,9 +2,15 @@
 ## Perform general analysis to understand DW project 
 ## duration data
 ###########################################################
-library(reshape2)
-library(dplyr)
 library(qcc)
+library(ggplot2)
+library(scales)
+library(ggthemes)
+library(plyr)
+library(dplyr)
+library(stringr)
+library(reshape2)
+library(lubridate)
 
 # Load in the project duration data from disk
 PDuration_P <- read.csv("DW_Data/Project_Duration_Post", header=TRUE, sep = ",", stringsAsFactors = TRUE,
